@@ -4,6 +4,8 @@ local function get_tables_completion()
     return {
         'WorldName',
         'PeopleName',
+        'WorldAspects',
+        'WorldInhabitants',
     }
 end
 
