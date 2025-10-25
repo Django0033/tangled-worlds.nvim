@@ -6,6 +6,7 @@ local function get_tables_completion()
         'PeopleName',
         'WorldAspects',
         'WorldInhabitants',
+        'ExplorationTerrain',
     }
 end
 

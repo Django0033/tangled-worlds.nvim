@@ -2,6 +2,7 @@ require('tangled-worlds.tables.world-name')
 require('tangled-worlds.tables.people-name')
 require('tangled-worlds.tables.world-aspects')
 require('tangled-worlds.tables.world-inhabitants')
+require('tangled-worlds.tables.exploration-terrain')
 
 M = {}
 
