@@ -4,6 +4,7 @@ local function get_tables_completion()
     return {
 
         'ExplorationEvent',
+        'ExplorationFindings',
         'ExplorationOrnament',
         'ExplorationTerrain',
         'PeopleName',

@@ -1,4 +1,5 @@
 require('tangled-worlds.tables.exploration-event')
+require('tangled-worlds.tables.exploration-findings')
 require('tangled-worlds.tables.exploration-ornament')
 require('tangled-worlds.tables.exploration-terrain')
 require('tangled-worlds.tables.people-name')
