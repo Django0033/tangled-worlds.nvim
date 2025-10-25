@@ -2,11 +2,12 @@ math.randomseed(os.time() + vim.fn.getpid())
 
 local function get_tables_completion()
     return {
-        'WorldName',
+        'ExplorationOrnament',
+        'ExplorationTerrain',
         'PeopleName',
         'WorldAspects',
         'WorldInhabitants',
-        'ExplorationTerrain',
+        'WorldName',
     }
 end
 
