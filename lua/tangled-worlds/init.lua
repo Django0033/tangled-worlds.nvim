@@ -1,4 +1,6 @@
 require('tangled-worlds.tables.creation-purpose')
+require('tangled-worlds.tables.creation-trait')
+require('tangled-worlds.tables.creation-magic')
 require('tangled-worlds.tables.exploration-event')
 require('tangled-worlds.tables.exploration-findings')
 require('tangled-worlds.tables.exploration-ornament')

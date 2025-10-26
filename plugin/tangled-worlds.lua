@@ -4,6 +4,8 @@ local function get_tables_completion()
     return {
 
         'CreationPurpose',
+        'CreationMagic',
+        'CreationTrait',
         'ExplorationEvent',
         'ExplorationFindings',
         'ExplorationOrnament',
