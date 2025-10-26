@@ -1,4 +1,4 @@
-PeopleName = {
+return {
     {
         'Mor',
         'Ker',

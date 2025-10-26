@@ -1,4 +1,4 @@
-ExplorationOrnament = {
+return {
     {
         'Weathered',
         'Haunted',

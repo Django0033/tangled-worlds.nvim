@@ -1,4 +1,4 @@
-ExplorationTerrain = {
+return {
     {
         'Jagged',
         'Forsaken',

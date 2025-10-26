@@ -1,4 +1,4 @@
-WorldInhabitants = {
+return {
     {
         'Forsaken',
         'Corrupted',

@@ -1,4 +1,4 @@
-WorldAspects = {
+return {
     {
         'Depths',
         'Sea',

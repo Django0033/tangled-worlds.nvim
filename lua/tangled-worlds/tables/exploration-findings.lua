@@ -1,4 +1,4 @@
-ExplorationFindings = {
+return {
     {
         'Benevolent',
         'Natural',

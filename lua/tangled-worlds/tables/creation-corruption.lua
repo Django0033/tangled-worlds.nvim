@@ -1,4 +1,4 @@
-CreationCorruption = {
+return {
     'Disintegration',
     'Invisibility',
     'Tech malfunction',

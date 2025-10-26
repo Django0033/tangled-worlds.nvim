@@ -1,4 +1,4 @@
-CreationMagic = {
+return {
     {
         'Transform',
         'Freeze',

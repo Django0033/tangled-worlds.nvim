@@ -1,4 +1,4 @@
-ExplorationEvent = {
+return {
     {
         'Roaming',
         'Terrifying',

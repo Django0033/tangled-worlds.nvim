@@ -1,4 +1,4 @@
-CreationTrait = {
+return {
     'Sleek, aerodynamic profile',
     'Stark, contrasting lines',
     'Liquid, flowing lines',
