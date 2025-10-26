@@ -3,8 +3,9 @@ math.randomseed(os.time() + vim.fn.getpid())
 local function get_tables_completion()
     return {
 
-        'CreationPurpose',
+        'CreationCorruption',
         'CreationMagic',
+        'CreationPurpose',
         'CreationTrait',
         'ExplorationEvent',
         'ExplorationFindings',
