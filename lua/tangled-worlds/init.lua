@@ -7,6 +7,7 @@ Tangled_tbls.Exploration = require('tangled-worlds.tables.exploration')
 Tangled_tbls.World = require('tangled-worlds.tables.world')
 Tangled_tbls.People = require('tangled-worlds.tables.people')
 Tangled_tbls.Scene = require('tangled-worlds.tables.scene')
+Tangled_tbls.Quest = require('tangled-worlds.tables.quest')
 
 local function get_random_number(top_number)
     local random_number = math.random(1, top_number)
