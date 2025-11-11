@@ -7,5 +7,6 @@ Quest.Aid = require("tangled-worlds.tables.quest-aid")
 Quest.Escalation = require("tangled-worlds.tables.quest-escalation")
 Quest.Reward = require("tangled-worlds.tables.quest-reward")
 Quest.Twist = require("tangled-worlds.tables.quest-twist")
+Quest.ProgressTension = require("tangled-worlds.tables.quest-progress-tension")
 
 return Quest
