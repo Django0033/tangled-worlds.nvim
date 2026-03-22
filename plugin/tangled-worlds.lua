@@ -5,6 +5,6 @@ vim.api.nvim_create_user_command(
     require('tangled-worlds').print_random_elements,
     {
         nargs = '*',
-        complete = require('tangled-worlds').dinamic_completer
+        complete = require('tangled-worlds').dynamic_completer
     }
 )

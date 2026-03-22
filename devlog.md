@@ -251,6 +251,60 @@ For describing locations.
 
 ---
 
+## March 2026
+
+### Clean Code Refactor
+
+| Date | Change | Description |
+|------|--------|-------------|
+| 2026-03-22 | init.lua refactor | Eliminated `get_random_number`, replaced if/elseif with generic loop |
+| 2026-03-22 | Error handling | Added validation for invalid categories/subcategories |
+| 2026-03-22 | Variable names | Renamed to `category`/`subcategory` for clarity |
+| 2026-03-22 | Typo fix | `dinamic_completer` → `dynamic_completer` |
+| 2026-03-22 | Filename fix | `quest-oposition.lua` → `quest-opposition.lua` |
+| 2026-03-22 | Filename fix | `location-seeks-&-offers.lua` → `location-seeks-and-offers.lua` |
+| 2026-03-22 | Style | Standardized all `require()` to use single quotes |
+
+**Code Changes:**
+
+```lua
+-- Before: get_random_number wrapper
+local function get_random_number(top_number)
+    local random_number = math.random(1, top_number)
+    return random_number
+end
+
+-- After: Direct math.random
+local function get_random_element(tbl)
+    return tbl[math.random(#tbl)]
+end
+
+-- Before: Duplicated if/elseif
+if #secondary_tbl == 2 then
+    print(get_random_element(tertiary_tbl1) .. "-" .. ...)
+elseif #secondary_tbl == 3 then
+    print(get_random_element(tertiary_tbl1) .. "-" .. ...)
+end
+
+-- After: Generic loop
+local parts = {}
+for i = 1, #subcategory do
+    parts[i] = get_random_element(subcategory[i])
+end
+print(table.concat(parts, '-'))
+
+-- Before: Silent failure
+local secondary_tbl = primary_tbl[opts.fargs[2]]
+
+-- After: Error notification
+if not category or not subcategory then
+    vim.notify('Invalid category or subcategory', vim.log.levels.ERROR)
+    return
+end
+```
+
+---
+
 ## Future Possibilities
 
 - [ ] Custom user tables via configuration
