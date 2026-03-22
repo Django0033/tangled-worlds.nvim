@@ -33,7 +33,7 @@ Random tables for solo roleplaying. A Neovim plugin that generates procedural co
 ### packer.nvim
 
 ```lua
-use "Eleazar Pequeno/tangled-worlds.nvim"
+use "Django0033/tangled-worlds.nvim"
 ```
 
 ---
