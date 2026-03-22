@@ -371,10 +371,61 @@ end
 
 ---
 
+## March 2026 (Continued)
+
+### Markdown Buffer Insertion
+
+| Date | Change | Description |
+|------|--------|-------------|
+| 2026-03-22 | init.lua | Auto-detect markdown buffers for insertion |
+| 2026-03-22 | is_markdown_buffer() | Detects .md files or markdown filetype |
+| 2026-03-22 | insert_at_cursor() | Inserts result at cursor position in buffer |
+| 2026-03-22 | Hint | Dynamic hint: `<CR>` to insert in .md, `q` to cancel |
+
+**Behavior:**
+
+- If buffer is `.md`: Show window with `<CR>` to insert at cursor
+- If buffer is not `.md`: Show window with only `q` to close
+
+**Code Changes:**
+
+```lua
+local function is_markdown_buffer()
+    return vim.bo.filetype == 'markdown' or vim.fn.expand('%:e') == 'md'
+end
+
+local function insert_at_cursor(category, subcategory, content)
+    local text = '(' .. category .. ' -> ' .. subcategory .. ') ' .. content
+    local win_id = vim.api.nvim_get_current_win()
+    local cursor = vim.api.nvim_win_get_cursor(win_id)
+    local row = cursor[1] - 1
+    local col = cursor[2]
+
+    local line = vim.api.nvim_get_current_line()
+    local before = string.sub(line, 1, col)
+    local after = string.sub(line, col + 1)
+
+    vim.api.nvim_buf_set_lines(0, row, row + 1, false, { before .. text .. after })
+    vim.api.nvim_win_set_cursor(win_id, { row + 1, col + #text })
+end
+```
+
+**Visual Design (Markdown buffer):**
+
+```
+┌─────────────────────────────────────┐
+│ World -> Name                        │
+│ Sylvale                             │
+│                                     │
+│ Press <CR> to insert | q to cancel │
+└─────────────────────────────────────┘
+```
+
+---
+
 ## Future Possibilities
 
 - [ ] Custom user tables via configuration
-- [ ] Save/generate to buffer
 - [ ] Batch generation (multiple results)
 - [ ] Export combinations to file
 - [ ] Integration with telescope.nvim

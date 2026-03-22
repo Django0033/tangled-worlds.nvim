@@ -14,8 +14,30 @@ local function get_random_element(tbl)
     return tbl[math.random(#tbl)]
 end
 
-local function show_floating_window(category, subcategory, content)
-    local hint = 'Press q to close'
+local function is_markdown_buffer()
+    return vim.bo.filetype == 'markdown' or vim.fn.expand('%:e') == 'md'
+end
+
+local function insert_at_cursor(category, subcategory, content)
+    local text = '(' .. category .. ' -> ' .. subcategory .. ') ' .. content
+    local win_id = vim.api.nvim_get_current_win()
+    local cursor = vim.api.nvim_win_get_cursor(win_id)
+    local row = cursor[1] - 1
+    local col = cursor[2]
+
+    local line = vim.api.nvim_get_current_line()
+    local before = string.sub(line, 1, col)
+    local after = string.sub(line, col + 1)
+
+    vim.api.nvim_buf_set_lines(0, row, row + 1, false, { before .. text .. after })
+    vim.api.nvim_win_set_cursor(win_id, { row + 1, col + #text })
+end
+
+local function show_floating_window(category, subcategory, content, is_md)
+    local hint = is_md
+        and 'Press <CR> to insert | q to cancel'
+        or 'Press q to close'
+
     local lines = {
         category .. ' -> ' .. subcategory,
         content,
@@ -26,7 +48,14 @@ local function show_floating_window(category, subcategory, content)
     local buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
     vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>bd!<cr>', { noremap = true })
-    vim.keymap.set('n', '<Esc>', '<cmd>bd!<cr>', { buffer = buf, noremap = true })
+
+    if is_md then
+        vim.keymap.set('n', '<CR>', function()
+            vim.api.nvim_win_close(win_id, true)
+            vim.api.nvim_buf_delete(buf, { force = true })
+            insert_at_cursor(category, subcategory, content)
+        end, { buffer = buf, noremap = true, silent = true })
+    end
 
     local width = math.max(
         #category + #subcategory + 5,
@@ -75,7 +104,8 @@ function M.print_random_elements(opts)
         content = get_random_element(subcategory)
     end
 
-    show_floating_window(category_name, subcategory_name, content)
+    local md = is_markdown_buffer()
+    show_floating_window(category_name, subcategory_name, content, md)
 end
 
 function M.dynamic_completer(_, cmd_line, _)
