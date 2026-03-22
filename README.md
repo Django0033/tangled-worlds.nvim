@@ -11,10 +11,10 @@ Random tables for solo roleplaying. A Neovim plugin that generates procedural co
 
 - **7 Categories** with 50+ subcategories
 - **600+ combinations** of content
+- **Floating window display** with clean border
 - **Procedural name generator** with fantasy-style syllables
 - **Dynamic autocompletion** for easy exploration
 - **Pure Lua** with zero external dependencies
-- **Copy-paste ready** output
 
 ---
 
@@ -41,10 +41,12 @@ use "Django0033/tangled-worlds.nvim"
 ## Usage
 
 ```
-:TangledWorlds <category> [subcategory]
+:TangledWorlds <category> <subcategory>
 ```
 
 Press `<Tab>` for dynamic autocompletion of categories and subcategories.
+
+Results display in a floating window. Press `q` to close.
 
 ### Categories Overview
 
@@ -62,76 +64,30 @@ Press `<Tab>` for dynamic autocompletion of categories and subcategories.
 
 ## Examples
 
-### Generate a Magical Object
-
-```vim
-:TangledWorlds Creation Purpose
-" A crystal for Sealing dreams"
-
-:TangledWorlds Creation Magic
-" Transform-Poison"
-
-:TangledWorlds Creation Trait
-" Mirror-polished surface"
 ```
-
-### Create a Character
-
-```vim
-:TangledWorlds People Name
-" Elirquill"
-
-:TangledWorlds People Role
-" LoyalHealer"
-
-:TangledWorlds People Quirk
-" Peculiar accent"
-```
-
-### Build a World
-
-```vim
 :TangledWorlds World Name
-" Sylvale"
+┌───────────────────────────┐
+│ World -> Name             │
+│ Sylvale                   │
+│                           │
+│ Press q to close          │
+└───────────────────────────┘
 
-:TangledWorlds World Aspects
-" DepthControlled"
+:TangledWorlds Creation Purpose
+┌───────────────────────────┐
+│ Creation -> Purpose       │
+│ A crystal for Sealing     │
+│                           │
+│ Press q to close          │
+└───────────────────────────┘
 
-:TangledWorlds World Inhabitants
-" ForsakenElementals"
-```
-
-### Generate a Quest
-
-```vim
 :TangledWorlds Quest Mission
-" SpyonCreature Xyrbane"
-
-:TangledWorlds Quest Twist
-" Hidden society"
-
-:TangledWorlds Quest Reward
-" Blessing"
-```
-
-### Describe a Location
-
-```vim
-:TangledWorlds Location Mood
-" Unsettling silence"
-
-:TangledWorlds Location Building
-" ResearchFuturistic"
-```
-
-### Craft a Scene
-
-```vim
-:TangledWorlds Scene Senses
-" Spiced incense + Water drip"
-
-:TangledWorlds Scene Challenge
-" HardBattle"
+┌───────────────────────────┐
+│ Quest -> Mission          │
+│ SpyonCreature Xyrbane     │
+│                           │
+│ Press q to close          │
+└───────────────────────────┘
 ```
 
 ---
