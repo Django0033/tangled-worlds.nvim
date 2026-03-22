@@ -522,8 +522,8 @@ end
 
 **Usage:**
 ```
-:TangledWorlds World Name         -- 1 result (default)
-:TangledWorlds World Name -n 5   -- 5 results (max 10)
+:TangledWorlds World Name       -- 1 result (default)
+:TangledWorlds World Name 5     -- 5 results (max 10)
 ```
 
 **Visual:**
@@ -543,9 +543,23 @@ end
 
 ---
 
+### Bug Fix: Number at End Syntax
+
+| Date | Change | Description |
+|------|--------|-------------|
+| 2026-03-22 | Command | Parse number from last argument instead of `-n` flag |
+| 2026-03-22 | Syntax | Changed from `-n 5` to `5` at end |
+
+**Usage:**
+```
+:TangledWorlds World Name       -- 1 result
+:TangledWorlds World Name 5    -- 5 results
+```
+
+---
+
 ## Future Possibilities
 
-- [x] Batch generation (multiple results)
 - [ ] Custom user tables via configuration
 - [ ] Export combinations to file
 - [ ] Integration with telescope.nvim

@@ -113,9 +113,17 @@ local function show_floating_window(category, subcategory, results, is_md)
 end
 
 function M.print_random_elements(opts)
-    local count = opts.count > 0 and math.min(opts.count, 10) or 1
-    local category_name = opts.fargs[1]
-    local subcategory_name = opts.fargs[2]
+    local args = opts.fargs
+    local count = 1
+    
+    local last_arg = args[#args]
+    if last_arg and tonumber(last_arg) then
+        count = math.min(tonumber(last_arg), 10)
+        args[#args] = nil
+    end
+    
+    local category_name = args[1]
+    local subcategory_name = args[2]
     local category = Tangled_tbls[category_name]
     local subcategory = category and category[subcategory_name]
 
