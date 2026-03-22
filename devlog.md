@@ -421,6 +421,51 @@ end
 └─────────────────────────────────────┘
 ```
 
+### Bug Fix: Window Handle Error
+
+| Date | Change | Description |
+|------|--------|-------------|
+| 2026-03-22 | insert_at_cursor() | Fixed invalid window handle error by passing `original_win` |
+| 2026-03-22 | Visual selection | Added support for replacing visual selection |
+| 2026-03-22 | Cursor position | Cursor now moves to end of inserted text |
+
+**Fixed Code:**
+
+```lua
+local function insert_at_cursor(category, subcategory, content, original_win)
+    local text = '(' .. category .. ' -> ' .. subcategory .. ') ' .. content
+
+    vim.api.nvim_set_current_win(original_win)
+
+    local mode = vim.fn.mode()
+    local start_row, start_col, end_row, end_col
+
+    if mode:find('v') or mode:find('V') or mode == 'nt' then
+        local s = vim.fn.getpos("'<")
+        local e = vim.fn.getpos("'>")
+        start_row = s[2] - 1
+        start_col = s[3] - 1
+        end_row = e[2] - 1
+        end_col = e[3]
+    else
+        local cursor = vim.api.nvim_win_get_cursor(original_win)
+        start_row = cursor[1] - 1
+        start_col = cursor[2]
+        end_row = start_row
+        end_col = start_col
+    end
+
+    local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row + 1, false)
+    local line = lines[1]
+
+    local before = string.sub(line, 1, start_col)
+    local after = string.sub(line, end_col + 1)
+
+    vim.api.nvim_buf_set_lines(0, start_row, end_row + 1, false, { before .. text .. after })
+    vim.api.nvim_win_set_cursor(original_win, { start_row + 1, start_col + #text })
+end
+```
+
 ---
 
 ## Future Possibilities
