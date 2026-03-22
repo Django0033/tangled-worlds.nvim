@@ -488,6 +488,35 @@ end
 
 ---
 
+### Bug Fix: Window Validation
+
+| Date | Change | Description |
+|------|--------|-------------|
+| 2026-03-22 | insert_at_cursor() | Add `vim.api.nvim_win_is_valid()` check before using window |
+| 2026-03-22 | show_floating_window() | Add `vim.api.nvim_win_is_valid()` check before closing window |
+
+**Fixed Code:**
+
+```lua
+local function insert_at_cursor(category, subcategory, content, original_win)
+    if not vim.api.nvim_win_is_valid(original_win) then
+        return
+    end
+    -- ...
+end
+
+if is_md then
+    vim.keymap.set('n', '<CR>', function()
+        if vim.api.nvim_win_is_valid(win_id) then
+            vim.api.nvim_win_close(win_id, true)
+        end
+        -- ...
+    end, { buffer = buf, noremap = true, silent = true })
+end
+```
+
+---
+
 ## Future Possibilities
 
 - [ ] Custom user tables via configuration

@@ -19,8 +19,11 @@ local function is_markdown_buffer()
 end
 
 local function insert_at_cursor(category, subcategory, content, original_win)
-    local text = '(' .. category .. ' -> ' .. subcategory .. ') ' .. content
+    if not vim.api.nvim_win_is_valid(original_win) then
+        return
+    end
 
+    local text = '(' .. category .. ' -> ' .. subcategory .. ') ' .. content
     vim.api.nvim_set_current_win(original_win)
 
     local mode = vim.fn.mode()
@@ -70,7 +73,9 @@ local function show_floating_window(category, subcategory, content, is_md)
 
     if is_md then
         vim.keymap.set('n', '<CR>', function()
-            vim.api.nvim_win_close(win_id, true)
+            if vim.api.nvim_win_is_valid(win_id) then
+                vim.api.nvim_win_close(win_id, true)
+            end
             vim.api.nvim_buf_delete(buf, { force = true })
             insert_at_cursor(category, subcategory, content, original_win)
         end, { buffer = buf, noremap = true, silent = true })
