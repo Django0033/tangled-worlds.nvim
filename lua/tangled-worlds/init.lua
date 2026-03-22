@@ -54,36 +54,48 @@ local function insert_at_cursor(category, subcategory, content, original_win)
     vim.api.nvim_win_set_cursor(original_win, { start_row + 1, start_col + #text })
 end
 
-local function show_floating_window(category, subcategory, content, is_md)
-    local original_win = vim.api.nvim_get_current_win()
-    local hint = is_md
-        and 'Press <CR> to insert | q to cancel'
-        or 'Press q to close'
+local function show_floating_window(category, subcategory, results, is_md)
+    local count = type(results) == 'table' and #results or 1
+    local title = count > 1
+        and category .. ' -> ' .. subcategory .. ' (' .. count .. ' results)'
+        or category .. ' -> ' .. subcategory
+    local hint = is_md and 'Press <CR> to insert | q to cancel' or 'Press q to close'
 
-    local lines = {
-        category .. ' -> ' .. subcategory,
-        content,
-        '',
-        hint,
-    }
+    local lines = { title }
+    if type(results) == 'table' then
+        for i = 1, math.min(count, 10) do
+            lines[#lines + 1] = results[i]
+        end
+    else
+        lines[#lines + 1] = results
+    end
+    lines[#lines + 1] = ''
+    lines[#lines + 1] = hint
+
+    local width = #title + 4
+    for i = 2, #lines do
+        width = math.max(width, #lines[i] + 4)
+    end
+    local height = math.min(#lines + 1, 15)
 
     local buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
     vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>bd!<cr>', { noremap = true })
 
+    local original_win = vim.api.nvim_get_current_win()
+
     if is_md then
         vim.keymap.set('n', '<CR>', function()
             vim.cmd('bd!')
-            insert_at_cursor(category, subcategory, content, original_win)
+            if type(results) == 'table' then
+                for i = 1, #results do
+                    insert_at_cursor(category, subcategory, results[i], original_win)
+                end
+            else
+                insert_at_cursor(category, subcategory, results, original_win)
+            end
         end, { buffer = buf, noremap = true, silent = true })
     end
-
-    local width = math.max(
-        #category + #subcategory + 5,
-        #content,
-        #hint
-    ) + 4
-    local height = 4
 
     local opts = {
         relative = 'editor',
@@ -101,6 +113,7 @@ local function show_floating_window(category, subcategory, content, is_md)
 end
 
 function M.print_random_elements(opts)
+    local count = opts.count > 0 and math.min(opts.count, 10) or 1
     local category_name = opts.fargs[1]
     local subcategory_name = opts.fargs[2]
     local category = Tangled_tbls[category_name]
@@ -114,19 +127,20 @@ function M.print_random_elements(opts)
     local first = subcategory[1]
     local is_nested = first and type(first) == 'table'
 
-    local content
-    if is_nested then
-        local parts = {}
-        for i = 1, #subcategory do
-            parts[i] = get_random_element(subcategory[i])
+    local results = {}
+    for i = 1, count do
+        if is_nested then
+            local parts = {}
+            for j = 1, #subcategory do
+                parts[j] = get_random_element(subcategory[j])
+            end
+            results[i] = table.concat(parts, '-')
+        else
+            results[i] = get_random_element(subcategory)
         end
-        content = table.concat(parts, '-')
-    else
-        content = get_random_element(subcategory)
     end
 
-    local md = is_markdown_buffer()
-    show_floating_window(category_name, subcategory_name, content, md)
+    show_floating_window(category_name, subcategory_name, results, is_markdown_buffer())
 end
 
 function M.dynamic_completer(_, cmd_line, _)
@@ -135,16 +149,15 @@ function M.dynamic_completer(_, cmd_line, _)
     if #args < 2 then
         local keys = {}
         for key, _ in pairs(Tangled_tbls) do
-            table.insert(keys, key)
+            keys[#keys + 1] = key
         end
         return keys
     elseif #args < 3 then
         local main_table = Tangled_tbls[args[2]]
-
         if main_table and type(main_table) == 'table' then
             local keys = {}
             for key, _ in pairs(main_table) do
-                table.insert(keys, key)
+                keys[#keys + 1] = key
             end
             return keys
         end

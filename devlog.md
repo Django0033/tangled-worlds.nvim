@@ -509,9 +509,43 @@ end
 
 ---
 
+## March 2026 (Continued)
+
+### Batch Generation
+
+| Date | Change | Description |
+|------|--------|-------------|
+| 2026-03-22 | Command | Added `-n` flag for multiple results (e.g., `:TangledWorlds World Name -n 5`) |
+| 2026-03-22 | print_random_elements() | Loop to generate multiple results, max 10 |
+| 2026-03-22 | show_floating_window() | Dynamic height and width for multiple results |
+| 2026-03-22 | plugin | Added `count = 0` parameter |
+
+**Usage:**
+```
+:TangledWorlds World Name         -- 1 result (default)
+:TangledWorlds World Name -n 5   -- 5 results (max 10)
+```
+
+**Visual:**
+```
+┌─────────────────────────────────────┐
+│ World -> Name (5 results)            │
+│ Sylvale                              │
+│ Xyrbane                              │
+│ Elirquill                            │
+│ Arken-crest                          │
+│ Tyv-mire                            │
+│                                      │
+│ Press <CR> to insert               │
+│ Press q to cancel                   │
+└─────────────────────────────────────┘
+```
+
+---
+
 ## Future Possibilities
 
+- [x] Batch generation (multiple results)
 - [ ] Custom user tables via configuration
-- [ ] Batch generation (multiple results)
 - [ ] Export combinations to file
 - [ ] Integration with telescope.nvim
