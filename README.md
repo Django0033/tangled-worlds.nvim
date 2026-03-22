@@ -24,7 +24,7 @@ Random tables for solo roleplaying. A Neovim plugin that generates procedural co
 
 ```lua
 {
-  "Eleazar Pequeno/tangled-worlds.nvim",
+  "Django0033/tangled-worlds.nvim",
   lazy = true,
   cmd = "TangledWorlds",
 }
