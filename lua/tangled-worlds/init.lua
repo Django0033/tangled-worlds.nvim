@@ -14,9 +14,47 @@ local function get_random_element(tbl)
     return tbl[math.random(#tbl)]
 end
 
+local function show_floating_window(category, subcategory, content)
+    local hint = 'Press q to close'
+    local lines = {
+        category .. ' -> ' .. subcategory,
+        content,
+        '',
+        hint,
+    }
+
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+    vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>bd!<cr>', { noremap = true })
+    vim.keymap.set('n', '<Esc>', '<cmd>bd!<cr>', { buffer = buf, noremap = true })
+
+    local width = math.max(
+        #category + #subcategory + 5,
+        #content,
+        #hint
+    ) + 4
+    local height = 4
+
+    local opts = {
+        relative = 'editor',
+        width = width,
+        height = height,
+        row = math.floor((vim.o.lines - height) / 2) - 1,
+        col = math.floor((vim.o.columns - width) / 2),
+        style = 'minimal',
+        border = 'single',
+        noautocmd = true,
+    }
+
+    local win_id = vim.api.nvim_open_win(buf, true, opts)
+    vim.api.nvim_set_current_win(win_id)
+end
+
 function M.print_random_elements(opts)
-    local category = Tangled_tbls[opts.fargs[1]]
-    local subcategory = category and category[opts.fargs[2]]
+    local category_name = opts.fargs[1]
+    local subcategory_name = opts.fargs[2]
+    local category = Tangled_tbls[category_name]
+    local subcategory = category and category[subcategory_name]
 
     if not category or not subcategory then
         vim.notify('Invalid category or subcategory', vim.log.levels.ERROR)
@@ -26,15 +64,18 @@ function M.print_random_elements(opts)
     local first = subcategory[1]
     local is_nested = first and type(first) == 'table'
 
+    local content
     if is_nested then
         local parts = {}
         for i = 1, #subcategory do
             parts[i] = get_random_element(subcategory[i])
         end
-        print(table.concat(parts, '-'))
+        content = table.concat(parts, '-')
     else
-        print(get_random_element(subcategory))
+        content = get_random_element(subcategory)
     end
+
+    show_floating_window(category_name, subcategory_name, content)
 end
 
 function M.dynamic_completer(_, cmd_line, _)

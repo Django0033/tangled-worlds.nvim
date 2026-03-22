@@ -305,6 +305,72 @@ end
 
 ---
 
+## March 2026 (Continued)
+
+### Floating Window Display
+
+| Date | Change | Description |
+|------|--------|-------------|
+| 2026-03-22 | init.lua | Results now display in a floating window instead of print() |
+| 2026-03-22 | Border | Using `border = 'single'` for clean appearance |
+| 2026-03-22 | Title | Shows `Category -> Subcategory` in window header |
+| 2026-03-22 | Hint | Added "Press q to close" hint |
+
+**Visual Design:**
+
+```
+┌─────────────────────────────────────┐
+│ Creation -> Purpose                 │
+│ A crystal for Sealing dreams        │
+│                                     │
+│ Press q to close                     │
+└─────────────────────────────────────┘
+```
+
+**Code Changes:**
+
+```lua
+-- Before: print to stdout
+print(table.concat(parts, '-'))
+
+-- After: floating window
+local function show_floating_window(category, subcategory, content)
+    local hint = 'Press q to close'
+    local lines = {
+        category .. ' -> ' .. subcategory,
+        content,
+        '',
+        hint,
+    }
+
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+    vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>bd!<cr>', { noremap = true })
+
+    local width = math.max(
+        #category + #subcategory + 5,
+        #content,
+        #hint
+    ) + 4
+
+    local opts = {
+        relative = 'editor',
+        width = width,
+        height = 4,
+        row = math.floor((vim.o.lines - 4) / 2) - 1,
+        col = math.floor((vim.o.columns - width) / 2),
+        style = 'minimal',
+        border = 'single',
+        noautocmd = true,
+    }
+
+    local win_id = vim.api.nvim_open_win(buf, true, opts)
+    vim.api.nvim_set_current_win(win_id)
+end
+```
+
+---
+
 ## Future Possibilities
 
 - [ ] Custom user tables via configuration
