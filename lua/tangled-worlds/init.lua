@@ -55,12 +55,26 @@ local function insert_at_cursor(category, subcategory, content, original_win)
     vim.api.nvim_win_set_cursor(original_win, { new_row, 0 })
 end
 
+local function yank_results(results, category, subcategory)
+    local text
+    if type(results) == 'table' then
+        local lines = {}
+        for i = 1, #results do
+            lines[i] = '(' .. category .. ' -> ' .. subcategory .. ') ' .. results[i]
+        end
+        text = table.concat(lines, '\n')
+    else
+        text = '(' .. category .. ' -> ' .. subcategory .. ') ' .. results
+    end
+    vim.fn.setreg('+', text)
+end
+
 local function show_floating_window(category, subcategory, results, is_md)
     local count = type(results) == 'table' and #results or 1
     local title = count > 1
         and category .. ' -> ' .. subcategory .. ' (' .. count .. ' results)'
         or category .. ' -> ' .. subcategory
-    local hint = is_md and 'Press <CR> to insert | q to cancel' or 'Press q to close'
+    local hint = is_md and 'Press <CR> to insert | y to copy | q to cancel' or 'Press q to close'
 
     local lines = { title }
     if type(results) == 'table' then
@@ -95,6 +109,10 @@ local function show_floating_window(category, subcategory, results, is_md)
             else
                 insert_at_cursor(category, subcategory, results, original_win)
             end
+        end, { buffer = buf, noremap = true, silent = true })
+
+        vim.keymap.set('n', 'y', function()
+            yank_results(results, category, subcategory)
         end, { buffer = buf, noremap = true, silent = true })
     end
 

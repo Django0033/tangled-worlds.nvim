@@ -568,9 +568,28 @@ end
 
 ---
 
+## March 2026 (Continued)
+
+### Copy to Clipboard
+
+| Date | Change | Description |
+|------|--------|-------------|
+| 2026-03-22 | yank_results() | New function to copy results to clipboard |
+| 2026-03-22 | Keymap | Press `y` to copy without closing window |
+| 2026-03-22 | Hint | Updated to show `y` option |
+
+**Usage:**
+```
+:TangledWorlds World Name 3
+Press y to copy (clipboard receives all results)
+Press q to close
+```
+
+---
+
 ## Future Possibilities
 
-- [ ] Copy to clipboard (~3 lines) - Press `y` to copy result without inserting
+- [x] Copy to clipboard (~15 lines) - Press `y` to copy result without inserting
 - [ ] Repeat last result (~10 lines) - `:TangledWorlds r` regenerates last result
 - [ ] Export combinations to file (~30 lines) - Save results to a file
 - [ ] Custom user tables via configuration (~50 lines) - User-defined tables
