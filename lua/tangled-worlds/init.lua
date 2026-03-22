@@ -52,6 +52,7 @@ local function insert_at_cursor(category, subcategory, content, original_win)
 end
 
 local function show_floating_window(category, subcategory, content, is_md)
+    local original_win = vim.api.nvim_get_current_win()
     local hint = is_md
         and 'Press <CR> to insert | q to cancel'
         or 'Press q to close'
@@ -69,7 +70,6 @@ local function show_floating_window(category, subcategory, content, is_md)
 
     if is_md then
         vim.keymap.set('n', '<CR>', function()
-            local original_win = vim.api.nvim_get_current_win()
             vim.api.nvim_win_close(win_id, true)
             vim.api.nvim_buf_delete(buf, { force = true })
             insert_at_cursor(category, subcategory, content, original_win)

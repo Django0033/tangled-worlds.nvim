@@ -428,8 +428,28 @@ end
 | 2026-03-22 | insert_at_cursor() | Fixed invalid window handle error by passing `original_win` |
 | 2026-03-22 | Visual selection | Added support for replacing visual selection |
 | 2026-03-22 | Cursor position | Cursor now moves to end of inserted text |
+| 2026-03-22 | show_floating_window() | Capture `original_win` at function start instead of callback |
 
-**Fixed Code:**
+**Fixed Code (show_floating_window):**
+
+```lua
+local function show_floating_window(category, subcategory, content, is_md)
+    local original_win = vim.api.nvim_get_current_win()  -- Capture here
+
+    -- ...
+
+    if is_md then
+        vim.keymap.set('n', '<CR>', function()
+            vim.api.nvim_win_close(win_id, true)
+            vim.api.nvim_buf_delete(buf, { force = true })
+            insert_at_cursor(category, subcategory, content, original_win)  -- Use directly
+        end, { buffer = buf, noremap = true, silent = true })
+    end
+    -- ...
+end
+```
+
+**Fixed Code (insert_at_cursor):**
 
 ```lua
 local function insert_at_cursor(category, subcategory, content, original_win)
