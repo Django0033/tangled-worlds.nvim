@@ -570,8 +570,8 @@ end
 
 ## Future Possibilities
 
-- [ ] Repeat last result (`:TangledWorlds r` regenerates last result)
-- [ ] Copy to clipboard (press `y` to copy without inserting)
-- [ ] Custom user tables via configuration
-- [ ] Export combinations to file
-- [ ] Integration with telescope.nvim
+- [ ] Copy to clipboard (~3 lines) - Press `y` to copy result without inserting
+- [ ] Repeat last result (~10 lines) - `:TangledWorlds r` regenerates last result
+- [ ] Export combinations to file (~30 lines) - Save results to a file
+- [ ] Custom user tables via configuration (~50 lines) - User-defined tables
+- [ ] Integration with telescope.nvim (~100+ lines) - Fuzzy finding interface
