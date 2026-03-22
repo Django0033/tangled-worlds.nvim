@@ -564,6 +564,7 @@ end
 |------|--------|-------------|
 | 2026-03-22 | insert_at_cursor() | Each result now inserts on a new line |
 | 2026-03-22 | Line break | Text after cursor moves to next line |
+| 2026-03-22 | Cursor | Handle cursor at end of buffer gracefully |
 
 ---
 

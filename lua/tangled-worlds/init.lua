@@ -35,10 +35,24 @@ local function insert_at_cursor(category, subcategory, content, original_win)
     local after = string.sub(line, col + 1)
 
     vim.api.nvim_buf_set_lines(0, row, row + 1, false, { before .. text })
+
+    local line_count = vim.api.nvim_buf_line_count(0)
+    local new_row = row + 2
+
     if #after > 0 then
-        vim.api.nvim_buf_set_lines(0, row + 1, row + 1, false, { after })
+        if new_row > line_count then
+            vim.api.nvim_buf_set_lines(0, -1, -1, false, { after })
+        else
+            vim.api.nvim_buf_set_lines(0, row + 1, row + 1, false, { after })
+        end
     end
-    vim.api.nvim_win_set_cursor(original_win, { row + 2, 0 })
+
+    if new_row > line_count then
+        vim.api.nvim_buf_set_lines(0, -1, -1, false, { '' })
+        new_row = line_count + 1
+    end
+
+    vim.api.nvim_win_set_cursor(original_win, { new_row, 0 })
 end
 
 local function show_floating_window(category, subcategory, results, is_md)
