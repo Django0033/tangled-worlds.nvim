@@ -1,0 +1,260 @@
+# tangled-worlds.nvim - Development Log
+
+Random tables for solo roleplaying. A Neovim plugin that generates procedural content for worldbuilding, character creation, quests, and more.
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Total commits | 28 |
+| Main categories | 7 |
+| Subcategories | 50+ |
+| Possible combinations | 600+ |
+| Lua files | 2 |
+| Dependencies | 0 |
+
+---
+
+## Architecture & Design Decisions
+
+### Why Modular Tables?
+
+The plugin uses a hierarchical table system where each category contains multiple sub-tables. This design:
+
+- **Scalability**: Adding new content requires only new table entries, no code changes
+- **Composability**: Elements can combine (2-3 levels) using the `-` separator
+- **Discoverability**: Autocompletition guides users through available options
+
+### The `print_random_elements` Function
+
+A single generic function handles all generation:
+
+```lua
+print_random_elements(opts)
+  └── Supports 1-3 levels of depth
+  └── Combines elements with "-" separator
+  └── Example: Purpose + Magic = "A crystal for Sealing dreams"
+```
+
+### Random Seed
+
+```lua
+math.randomseed(os.time() + vim.fn.getpid())
+```
+
+Uses time + process ID to ensure different sequences between sessions while maintaining reproducibility within a session.
+
+### No External Dependencies
+
+Pure Lua using only Neovim APIs (`vim.api.nvim_create_user_command`, `vim.fn`). Users can copy-paste content directly from output.
+
+---
+
+## October 2025
+
+### Week 1: Foundation
+
+| Date | Commit | Description |
+|------|--------|-------------|
+| 2025-10-15 | Initial commit | Project initialization |
+| 2025-10-16 | Add main command and tables | Core structure: `TangledWorlds` command, World category with Name, Aspects, Inhabitants |
+
+```lua
+:TangledWorlds World Name
+-- Example output: "Sylvale"
+
+:TangledWorlds World Aspects
+-- Example output: "DepthControlled"
+```
+
+### Week 2: Exploration & Creation
+
+| Date | Commit | Description |
+|------|--------|-------------|
+| 2025-10-23 | Add world-aspects and world-inhabitants | Expanded World category |
+| 2025-10-25 | Add ExplorationTerrain, ExplorationOrnament, ExplorationEvent, ExplorationFindings | New Exploration category |
+| 2025-10-25 | Add CreationPurpose | Started Creation category |
+
+**Exploration Category**
+
+```lua
+:TangledWorlds Exploration Terrain
+-- Example output: "Jagged Valley"
+
+:TangledWorlds Exploration Event
+-- Example output: "Terrifying Spirit"
+```
+
+### Week 3: Creation Complete & Scene Begin
+
+| Date | Commit | Description |
+|------|--------|-------------|
+| 2025-10-26 | Add CreationMagic, CreationTrait | Creation expansion |
+| 2025-10-26 | Add CreationCorruption | Creation category completed |
+| 2025-10-26 | Add Scene Challenge, Reaction | Started Scene category |
+| 2025-10-26 | Refactor | Code restructuring |
+| 2025-10-26 | Add Scene Senses, Activity | Scene expansion |
+| 2025-10-29 | Add Scene Detail | Scene expansion |
+| 2025-11-02 | Add Scene Development | Scene expansion |
+| 2025-11-02 | Add Scene Advantage, Complication | Scene category completed |
+
+**Creation Category**
+
+```lua
+:TangledWorlds Creation Purpose
+-- Example output: "A crystal for Sealing dreams"
+
+:TangledWorlds Creation Magic
+-- Example output: "Transform-Poison"
+
+:TangledWorlds Creation Trait
+-- Example output: "Mirror-polished surface"
+```
+
+**Scene Category**
+
+```lua
+:TangledWorlds Scene Challenge
+-- Example output: "HardBattle"
+
+:TangledWorlds Scene Senses
+-- Example output: "Spiced incense + Water drip"
+```
+
+### Week 4: Quest Begins
+
+| Date | Commit | Description |
+|------|--------|-------------|
+| 2025-11-03 | Add Quest Mission | Started Quest category |
+| 2025-11-03 | Add Quest Opposition | Quest expansion |
+
+---
+
+## November 2025
+
+### Quest Expansion
+
+| Date | Commit | Description |
+|------|--------|-------------|
+| 2025-11-08 | Add Quest Hindrance, Aid | Quest expansion |
+| 2025-11-08 | Add Quest Escalation, Reward | Quest expansion |
+| 2025-11-08 | Add Quest Twist | Quest expansion |
+| 2025-11-08 | Refactor | Code restructuring |
+| 2025-11-10 | Add Quest ProgressTension | Quest category completed |
+
+**Quest Category**
+
+```lua
+:TangledWorlds Quest Mission
+-- Example output: "SpyonCreature Xyrbane"
+
+:TangledWorlds Quest Reward
+-- Example output: "Blessing"
+
+:TangledWorlds Quest Twist
+-- Example output: "Hidden society"
+```
+
+### Location Category
+
+| Date | Commit | Description |
+|------|--------|-------------|
+| 2025-11-10 | Add Location PastPresent, Descriptor, Trouble, Building | Started Location category |
+| 2025-11-12 | Add Location Building, Trouble, Descriptor | Location expansion |
+| 2025-11-27 | Add Location Influence | Location expansion |
+
+**Location Category**
+
+```lua
+:TangledWorlds Location Mood
+-- Example output: "Unsettling silence"
+
+:TangledWorlds Location Building
+-- Example output: "ResearchFuturistic"
+```
+
+---
+
+## Content Summary by Category
+
+### Creation (4 subcategories)
+For creating magical/artificial objects.
+
+- **Purpose**: 38 magical purposes (Sealing, Reflection, Amplification...)
+- **Trait**: 38 physical traits (Sleek profile, Mirror-polished...)
+- **Magic**: 78 combinations (Transform+Poison, Freeze+Dream...)
+- **Corruption**: 38 corruption effects (Disintegration, Invisibility...)
+
+### Exploration (4 subcategories)
+For exploration adventures.
+
+- **Terrain**: 76 combinations (Jagged Valley, Forsaken Prairie...)
+- **Ornament**: 76 combinations (Weathered Rodents, Haunted Mist...)
+- **Event**: 76 combinations (Terrifying Spirit, Roaming Elemental...)
+- **Findings**: 76 combinations (Benevolent Potion, Natural Tracks...)
+
+### World (3 subcategories)
+For creating worlds/nations.
+
+- **Name**: 76 combinations (Elirquill, Sylvale, Xyrbane...)
+- **Aspects**: 76 combinations (DepthControlled, SeaOutdated...)
+- **Inhabitants**: 76 combinations (ForsakenElementals, CorruptedScientists...)
+
+### People (7 subcategories)
+For generating characters/NPCs.
+
+- **Name**: 116 combinations (fantasy name generator)
+- **Disposition**: 78 combinations
+- **Role**: 78 combinations
+- **Descriptor**: 38 physical/psychological traits
+- **Quirk**: 38 quirks (Exaggerated bow, Peculiar accent...)
+- **Drive**: 76 combinations (motivation)
+- **Secret**: 38 secrets (Blackmail victim, Stolen identity...)
+
+### Scene (8 subcategories)
+For describing narrative scenes.
+
+- **Challenge**: 47 combinations (HardBattle, EasyInfiltration...)
+- **Reaction**: 76 combinations
+- **Senses**: 76 combinations
+- **Activity**: 38 activities
+- **Detail**: 38 narrative details
+- **Development**: 38 narrative developments
+- **Complication**: 6 complications
+- **Advantage**: 6 advantages
+
+### Quest (8 subcategories)
+For generating missions.
+
+- **Mission**: 78 combinations (DeliverSystem, SpyonCreature...)
+- **Opposition**: 76 combinations
+- **Hindrance**: 38 obstacles
+- **Aid**: 38 helps
+- **Escalation**: 38 escalations
+- **Reward**: 38 rewards
+- **Twist**: 38 plot twists
+- **ProgressTension**: 76 combinations
+
+### Location (8 subcategories)
+For describing locations.
+
+- **PastPresent**: 76 combinations
+- **Descriptor**: 76 combinations
+- **Trouble**: 38 problems
+- **Building**: 76 combinations
+- **Influence**: 38 influences
+- **Mood**: 38 atmospheres
+- **Rumor**: 38 rumors
+- **SeeksOffers**: 76 combinations
+
+---
+
+## Future Possibilities
+
+- [ ] Custom user tables via configuration
+- [ ] Save/generate to buffer
+- [ ] Batch generation (multiple results)
+- [ ] Export combinations to file
+- [ ] Integration with telescope.nvim
