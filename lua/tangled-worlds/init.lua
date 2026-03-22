@@ -26,32 +26,19 @@ local function insert_at_cursor(category, subcategory, content, original_win)
     local text = '(' .. category .. ' -> ' .. subcategory .. ') ' .. content
     vim.api.nvim_set_current_win(original_win)
 
-    local mode = vim.fn.mode()
-    local start_row, start_col, end_row, end_col
+    local cursor = vim.api.nvim_win_get_cursor(original_win)
+    local row = cursor[1] - 1
+    local col = cursor[2]
 
-    if mode:find('v') or mode:find('V') or mode == 'nt' then
-        local s = vim.fn.getpos("'<")
-        local e = vim.fn.getpos("'>")
-        start_row = s[2] - 1
-        start_col = s[3] - 1
-        end_row = e[2] - 1
-        end_col = e[3]
-    else
-        local cursor = vim.api.nvim_win_get_cursor(original_win)
-        start_row = cursor[1] - 1
-        start_col = cursor[2]
-        end_row = start_row
-        end_col = start_col
+    local line = vim.api.nvim_get_current_line()
+    local before = string.sub(line, 1, col)
+    local after = string.sub(line, col + 1)
+
+    vim.api.nvim_buf_set_lines(0, row, row + 1, false, { before .. text })
+    if #after > 0 then
+        vim.api.nvim_buf_set_lines(0, row + 1, row + 1, false, { after })
     end
-
-    local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row + 1, false)
-    local line = lines[1]
-
-    local before = string.sub(line, 1, start_col)
-    local after = string.sub(line, end_col + 1)
-
-    vim.api.nvim_buf_set_lines(0, start_row, end_row + 1, false, { before .. text .. after })
-    vim.api.nvim_win_set_cursor(original_win, { start_row + 1, start_col + #text })
+    vim.api.nvim_win_set_cursor(original_win, { row + 2, 0 })
 end
 
 local function show_floating_window(category, subcategory, results, is_md)
