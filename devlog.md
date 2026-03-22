@@ -570,6 +570,8 @@ end
 
 ## Future Possibilities
 
+- [ ] Repeat last result (`:TangledWorlds r` regenerates last result)
+- [ ] Copy to clipboard (press `y` to copy without inserting)
 - [ ] Custom user tables via configuration
 - [ ] Export combinations to file
 - [ ] Integration with telescope.nvim
