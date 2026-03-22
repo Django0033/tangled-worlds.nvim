@@ -488,32 +488,24 @@ end
 
 ---
 
-### Bug Fix: Window Validation
+### Bug Fix: Simplified Window Closing
 
 | Date | Change | Description |
 |------|--------|-------------|
-| 2026-03-22 | insert_at_cursor() | Add `vim.api.nvim_win_is_valid()` check before using window |
-| 2026-03-22 | show_floating_window() | Add `vim.api.nvim_win_is_valid()` check before closing window |
+| 2026-03-22 | <CR> callback | Use `vim.cmd('bd!')` to close floating window instead of manual window/buffer handling |
 
 **Fixed Code:**
 
 ```lua
-local function insert_at_cursor(category, subcategory, content, original_win)
-    if not vim.api.nvim_win_is_valid(original_win) then
-        return
-    end
-    -- ...
-end
-
 if is_md then
     vim.keymap.set('n', '<CR>', function()
-        if vim.api.nvim_win_is_valid(win_id) then
-            vim.api.nvim_win_close(win_id, true)
-        end
-        -- ...
+        vim.cmd('bd!')
+        insert_at_cursor(category, subcategory, content, original_win)
     end, { buffer = buf, noremap = true, silent = true })
 end
 ```
+
+**Rationale:** Using `:bd!` is more robust and works across all Neovim modes, avoiding window handle validation issues.
 
 ---
 
