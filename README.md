@@ -47,7 +47,7 @@ use "Django0033/tangled-worlds.nvim"
 Press `<Tab>` for dynamic autocompletion of categories and subcategories.
 
 Results display in a floating window.
-- In markdown files: Press `<CR>` to insert at cursor, `q` to cancel
+- In markdown files: Press `<CR>` to insert, `y` to copy, `q` to cancel
 - In other files: Press `q` to close
 
 ### Batch Generation
@@ -95,6 +95,7 @@ Generate multiple results at once (max 10):
 │ Elirquill                │
 │                           │
 │ Press <CR> to insert     │
+│ Press y to copy          │
 │ Press q to cancel         │
 └───────────────────────────┘
 ```
@@ -108,17 +109,18 @@ After pressing `<CR>`:
 
 ```
 :TangledWorlds World Name 5
-┌─────────────────────────────────────┐
-│ World -> Name (5 results)            │
-│ Sylvale                             │
-│ Xyrbane                             │
-│ Elirquill                           │
-│ Arken-crest                         │
-│ Tyv-mire                            │
-│                                     │
-│ Press <CR> to insert                │
-│ Press q to cancel                   │
-└─────────────────────────────────────┘
+┌─────────────────────────────────────────────┐
+│ World -> Name (5 results)                    │
+│ Sylvale                                     │
+│ Xyrbane                                     │
+│ Elirquill                                   │
+│ Arken-crest                                 │
+│ Tyv-mire                                    │
+│                                             │
+│ Press <CR> to insert                        │
+│ Press y to copy                             │
+│ Press q to cancel                            │
+└─────────────────────────────────────────────┘
 ```
 
 After pressing `<CR>` in markdown:

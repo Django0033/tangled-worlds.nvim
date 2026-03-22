@@ -10,3 +10,4 @@ test2(People -> Name) Lor-ril-ix text
 (World -> Name) Xyr-nir
 (World -> Name) Aer-gard
 
+(People -> Name) Mor-mir-ast
