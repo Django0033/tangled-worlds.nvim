@@ -46,7 +46,9 @@ use "Django0033/tangled-worlds.nvim"
 
 Press `<Tab>` for dynamic autocompletion of categories and subcategories.
 
-Results display in a floating window. Press `q` to close.
+Results display in a floating window.
+- In markdown files: Press `<CR>` to insert at cursor, `q` to cancel
+- In other files: Press `q` to close
 
 ### Categories Overview
 
@@ -64,6 +66,8 @@ Results display in a floating window. Press `q` to close.
 
 ## Examples
 
+### In Non-Markdown Files
+
 ```
 :TangledWorlds World Name
 ┌───────────────────────────┐
@@ -72,22 +76,24 @@ Results display in a floating window. Press `q` to close.
 │                           │
 │ Press q to close          │
 └───────────────────────────┘
+```
 
-:TangledWorlds Creation Purpose
-┌───────────────────────────┐
-│ Creation -> Purpose       │
-│ A crystal for Sealing     │
-│                           │
-│ Press q to close          │
-└───────────────────────────┘
+### In Markdown Files
 
-:TangledWorlds Quest Mission
+```
+:TangledWorlds People Name
 ┌───────────────────────────┐
-│ Quest -> Mission          │
-│ SpyonCreature Xyrbane     │
+│ People -> Name            │
+│ Elirquill                │
 │                           │
-│ Press q to close          │
+│ Press <CR> to insert     │
+│ Press q to cancel         │
 └───────────────────────────┘
+```
+
+After pressing `<CR>`:
+```
+- Character name: (People -> Name) Elirquill
 ```
 
 ---
