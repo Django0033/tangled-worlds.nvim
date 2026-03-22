@@ -11,3 +11,8 @@ test2(People -> Name) Lor-ril-ix text
 (World -> Name) Aer-gard
 
 (People -> Name) Mor-mir-ast
+(World -> Name) Uvan-spire
+(World -> Name) Pher-jorn
+(World -> Name) Fyr-mire
+(World -> Name) Tyv-fell
+(World -> Name) Noc-quill

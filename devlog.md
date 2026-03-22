@@ -589,7 +589,7 @@ Press q to close
 
 ## Future Possibilities
 
-- [x] Copy to clipboard (~15 lines) - Press `y` to copy result without inserting
+- [ ] Quick random (~10 lines) - `:TangledWorlds` without arguments generates random content
 - [ ] Repeat last result (~10 lines) - `:TangledWorlds r` regenerates last result
 - [ ] Export combinations to file (~30 lines) - Save results to a file
 - [ ] Custom user tables via configuration (~50 lines) - User-defined tables
