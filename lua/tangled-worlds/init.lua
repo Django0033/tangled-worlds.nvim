@@ -1,5 +1,12 @@
 M = {}
 
+local predefined = {
+    scene = {
+        { label = 'Challenge', cat = 'Scene', sub = 'Challenge' },
+        { label = 'Senses', cat = 'Scene', sub = 'Senses' },
+    },
+}
+
 Tangled_tbls = {}
 
 Tangled_tbls.Creation = require('tangled-worlds.tables.creation')
@@ -133,6 +140,75 @@ end
 
 function M.print_random_elements(opts)
     local args = opts.fargs
+    local generator_name = args[1]
+
+    if predefined[generator_name] then
+        local elements = predefined[generator_name]
+        local display_lines = { generator_name }
+        local insert_parts = {}
+
+        for _, elem in ipairs(elements) do
+            local tbl = Tangled_tbls[elem.cat][elem.sub]
+            local first = tbl[1]
+            local is_nested = first and type(first) == 'table'
+            local content
+
+            if is_nested then
+                local parts = {}
+                for i = 1, #tbl do
+                    parts[i] = get_random_element(tbl[i])
+                end
+                content = table.concat(parts, '-')
+            else
+                content = get_random_element(tbl)
+            end
+
+            display_lines[#display_lines + 1] = elem.label .. ': ' .. content
+            insert_parts[#insert_parts + 1] = elem.label .. ': ' .. content
+        end
+
+        display_lines[#display_lines + 1] = ''
+        display_lines[#display_lines + 1] = 'Press <CR> to insert | y to copy | q to cancel'
+
+        local width = #generator_name + 4
+        for i = 2, #display_lines do
+            width = math.max(width, #display_lines[i] + 4)
+        end
+
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, display_lines)
+        vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>bd!<cr>', { noremap = true })
+
+        local original_win = vim.api.nvim_get_current_win()
+        local insert_text = table.concat(insert_parts, ' | ')
+
+        if is_markdown_buffer() then
+            vim.keymap.set('n', '<CR>', function()
+                vim.cmd('bd!')
+                insert_at_cursor(generator_name, 'generator', insert_text, original_win)
+            end, { buffer = buf, noremap = true, silent = true })
+
+            vim.keymap.set('n', 'y', function()
+                vim.fn.setreg('+', insert_text)
+            end, { buffer = buf, noremap = true, silent = true })
+        end
+
+        local opts = {
+            relative = 'editor',
+            width = width,
+            height = #display_lines + 1,
+            row = math.floor((vim.o.lines - #display_lines - 1) / 2) - 1,
+            col = math.floor((vim.o.columns - width) / 2),
+            style = 'minimal',
+            border = 'single',
+            noautocmd = true,
+        }
+
+        local win_id = vim.api.nvim_open_win(buf, true, opts)
+        vim.api.nvim_set_current_win(win_id)
+        return
+    end
+
     local count = 1
     
     local last_arg = args[#args]
@@ -176,6 +252,9 @@ function M.dynamic_completer(_, cmd_line, _)
     if #args < 2 then
         local keys = {}
         for key, _ in pairs(Tangled_tbls) do
+            keys[#keys + 1] = key
+        end
+        for key, _ in pairs(predefined) do
             keys[#keys + 1] = key
         end
         return keys

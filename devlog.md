@@ -601,19 +601,20 @@ Generate complete content with single commands.
 :TangledWorlds encounter -- Terrain + Event + Findings
 ```
 
-| Generator | Elements | Output Format | Lines |
-|-----------|----------|---------------|-------|
-| scene | Challenge, Senses | `HardBattle \| Spiced incense` | ~10 |
-| npc | Name, Role, Quirk, Drive | `Elirquill \| LoyalHealer \| PeculiarAccent \| SeeksRedemption` | ~15 |
-| world | Name, Aspects, Inhabitants | `Sylvale \| DepthControlled \| ForsakenElementals` | ~15 |
-| encounter | Terrain, Event, Findings | `JaggedValley \| TerrifyingSpirit \| BenevolentPotion` | ~15 |
-| quest | Mission, Opposition, Reward, Twist | `SpyonCreature Xyrbane \| CorruptedScientists \| Blessing \| Hidden society` | ~20 |
+| Generator | Elements                           | Output Format                                                           | Lines | Status |
+| --------- | ---------------------------------- | ---------------------------------------------------------------------- | ----- | ------ |
+| [scene](init.lua) | Challenge, Senses                  | `Challenge: HardBattle \| Senses: Spiced incense`                       | ~60   | Done   |
+| npc       | Name, Role, Quirk, Drive           | `Name: Elirquill \| Role: LoyalHealer \| Quirk: PeculiarAccent...`    | ~15   | Pending |
+| world     | Name, Aspects, Inhabitants         | `Name: Sylvale \| Aspects: DepthControlled \| Inhabitants: Forsaken...`  | ~15   | Pending |
+| encounter | Terrain, Event, Findings           | `Terrain: JaggedValley \| Event: TerrifyingSpirit \| Findings: Benevolent...` | ~15 | Pending |
+| quest     | Mission, Opposition, Reward, Twist | `Mission: SpyonCreature Xyrbane \| Opposition: CorruptedScientists...` | ~20 | Pending |
 
 **Implementation Notes:**
 - Single result per execution (no batch)
-- No abbreviations (npc, quest, scene, world, encounter only)
-- Error message: `Available: npc, quest, scene, world, encounter`
-- Labels: None (elements only)
+- Labels: Simple prefix (`Challenge:`, `Senses:`)
+- Autocompletion includes generator names
+- Display: each element on separate line
+- Insertion: pipe separated with labels
 
 ### Features
 
