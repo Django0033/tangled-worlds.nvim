@@ -589,6 +589,34 @@ Press q to close
 
 ## Future Possibilities
 
+### Predefined Generators
+
+Generate complete content with single commands.
+
+```
+:TangledWorlds npc       -- Name + Role + Quirk + Drive
+:TangledWorlds quest     -- Mission + Opposition + Reward + Twist
+:TangledWorlds scene     -- Challenge + Senses
+:TangledWorlds world     -- Name + Aspects + Inhabitants
+:TangledWorlds encounter -- Terrain + Event + Findings
+```
+
+| Generator | Elements | Output Format | Lines |
+|-----------|----------|---------------|-------|
+| scene | Challenge, Senses | `HardBattle \| Spiced incense` | ~10 |
+| npc | Name, Role, Quirk, Drive | `Elirquill \| LoyalHealer \| PeculiarAccent \| SeeksRedemption` | ~15 |
+| world | Name, Aspects, Inhabitants | `Sylvale \| DepthControlled \| ForsakenElementals` | ~15 |
+| encounter | Terrain, Event, Findings | `JaggedValley \| TerrifyingSpirit \| BenevolentPotion` | ~15 |
+| quest | Mission, Opposition, Reward, Twist | `SpyonCreature Xyrbane \| CorruptedScientists \| Blessing \| Hidden society` | ~20 |
+
+**Implementation Notes:**
+- Single result per execution (no batch)
+- No abbreviations (npc, quest, scene, world, encounter only)
+- Error message: `Available: npc, quest, scene, world, encounter`
+- Labels: None (elements only)
+
+### Features
+
 - [ ] Quick random (~10 lines) - `:TangledWorlds` without arguments generates random content
 - [ ] Repeat last result (~10 lines) - `:TangledWorlds r` regenerates last result
 - [ ] Export combinations to file (~30 lines) - Save results to a file
