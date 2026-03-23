@@ -202,7 +202,7 @@ For creating worlds/nations.
 - **Aspects**: 76 combinations (DepthControlled, SeaOutdated...)
 - **Inhabitants**: 76 combinations (ForsakenElementals, CorruptedScientists...)
 
-### People (7 subcategories)
+### People (8 subcategories)
 For generating characters/NPCs.
 
 - **Name**: 116 combinations (fantasy name generator)
@@ -212,6 +212,7 @@ For generating characters/NPCs.
 - **Quirk**: 38 quirks (Exaggerated bow, Peculiar accent...)
 - **Drive**: 76 combinations (motivation)
 - **Secret**: 38 secrets (Blackmail victim, Stolen identity...)
+- **SecretsOffers**: 76 combinations (Trust, Endorsement, Guidance...)
 
 ### Scene (8 subcategories)
 For describing narrative scenes.

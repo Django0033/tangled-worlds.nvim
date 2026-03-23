@@ -65,7 +65,7 @@ Generate multiple results at once (max 10):
 | **Creation** | Magical/artificial objects (Purpose, Trait, Magic, Corruption) |
 | **Exploration** | Adventure environments (Terrain, Ornament, Event, Findings) |
 | **World** | Worlds/nations (Name, Aspects, Inhabitants) |
-| **People** | Characters/NPCs (Name, Disposition, Role, Descriptor, Quirk, Drive, Secret) |
+| **People** | Characters/NPCs (Name, Disposition, Role, Descriptor, Quirk, Drive, Secret, SeeksOffers) |
 | **Scene** | Narrative scenes (Challenge, Reaction, Senses, Activity, Detail, Development, Complication, Advantage) |
 | **Quest** | Missions (Mission, Opposition, Hindrance, Aid, Escalation, Reward, Twist, ProgressTension) |
 | **Location** | Locations (PastPresent, Descriptor, Trouble, Building, Influence, Mood, Rumor, SeeksOffers) |
@@ -180,7 +180,7 @@ Challenge: HardBattle | Reaction: Defensive stance | Senses: Spiced incense | Ac
 | Creation | 4 | 38 purposes, 38 traits, 78 magics, 38 corruptions |
 | Exploration | 4 | 76 terrains, 76 ornaments, 76 events, 76 findings |
 | World | 3 | 76 names, 76 aspects, 76 inhabitants |
-| People | 7 | 116 names, 78 dispositions, 78 roles, 38 descriptors, 38 quirks, 76 drives, 38 secrets |
+| People | 8 | 116 names, 78 dispositions, 78 roles, 38 descriptors, 38 quirks, 76 drives, 38 secrets, 76 seeks/offers |
 | Scene | 8 | 47 challenges, 76 reactions, 76 senses, 38 activities, 38 details, 38 developments, 6 complications, 6 advantages |
 | Quest | 8 | 78 missions, 76 oppositions, 38 hindrances, 38 aids, 38 escalations, 38 rewards, 38 twists, 76 tensions |
 | Location | 8 | 76 past/present, 76 descriptors, 38 troubles, 76 buildings, 38 influences, 38 moods, 38 rumors, 76 seeks/offers |
