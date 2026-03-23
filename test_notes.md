@@ -16,3 +16,4 @@ test2(People -> Name) Lor-ril-ix text
 (World -> Name) Fyr-mire
 (World -> Name) Tyv-fell
 (World -> Name) Noc-quill
+Challenge: Easy-Retrieval | Senses: Earthy moss-Splashing waves

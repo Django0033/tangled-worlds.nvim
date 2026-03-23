@@ -594,24 +594,24 @@ Press q to close
 Generate complete content with single commands.
 
 ```
-:TangledWorlds npc       -- Name + Role + Quirk + Drive
-:TangledWorlds quest     -- Mission + Opposition + Reward + Twist
-:TangledWorlds scene     -- Challenge + Senses
-:TangledWorlds world     -- Name + Aspects + Inhabitants
-:TangledWorlds encounter -- Terrain + Event + Findings
+:TangledWorlds FullScene        -- Challenge, Reaction, Senses, Activity, Detail, Development, Complication, Advantage
+:TangledWorlds FullNPC          -- Name, Disposition, Role, Descriptor, Quirk, Drive, Secret
+:TangledWorlds FullExploration   -- Terrain, Ornament, Event, Findings
+:TangledWorlds FullWorld         -- Name, Aspects, Inhabitants
+:TangledWorlds FullQuest        -- Mission, Opposition, Hindrance, Aid, Escalation, Reward, Twist, ProgressTension
 ```
 
-| Generator | Elements                           | Output Format                                                           | Lines | Status |
-| --------- | ---------------------------------- | ---------------------------------------------------------------------- | ----- | ------ |
-| [scene](init.lua) | Challenge, Senses                  | `Challenge: HardBattle \| Senses: Spiced incense`                       | ~60   | Done   |
-| npc       | Name, Role, Quirk, Drive           | `Name: Elirquill \| Role: LoyalHealer \| Quirk: PeculiarAccent...`    | ~15   | Pending |
-| world     | Name, Aspects, Inhabitants         | `Name: Sylvale \| Aspects: DepthControlled \| Inhabitants: Forsaken...`  | ~15   | Pending |
-| encounter | Terrain, Event, Findings           | `Terrain: JaggedValley \| Event: TerrifyingSpirit \| Findings: Benevolent...` | ~15 | Pending |
-| quest     | Mission, Opposition, Reward, Twist | `Mission: SpyonCreature Xyrbane \| Opposition: CorruptedScientists...` | ~20 | Pending |
+| Generator | Elements | Lines | Status |
+| --------- | -------- | ----- | ------ |
+| [FullScene](init.lua) | Challenge, Reaction, Senses, Activity, Detail, Development, Complication, Advantage (8) | ~80 | Done |
+| FullNPC | Name, Disposition, Role, Descriptor, Quirk, Drive, Secret (7) | ~90 | Pending |
+| FullExploration | Terrain, Ornament, Event, Findings (4) | ~50 | Pending |
+| FullWorld | Name, Aspects, Inhabitants (3) | ~45 | Pending |
+| FullQuest | Mission, Opposition, Hindrance, Aid, Escalation, Reward, Twist, ProgressTension (8) | ~100 | Pending |
 
 **Implementation Notes:**
 - Single result per execution (no batch)
-- Labels: Simple prefix (`Challenge:`, `Senses:`)
+- Labels: Simple prefix (`Challenge:`, `Reaction:`, etc.)
 - Autocompletion includes generator names
 - Display: each element on separate line
 - Insertion: pipe separated with labels

@@ -1,9 +1,15 @@
 M = {}
 
 local predefined = {
-    scene = {
+    FullScene = {
         { label = 'Challenge', cat = 'Scene', sub = 'Challenge' },
+        { label = 'Reaction', cat = 'Scene', sub = 'Reaction' },
         { label = 'Senses', cat = 'Scene', sub = 'Senses' },
+        { label = 'Activity', cat = 'Scene', sub = 'Activity' },
+        { label = 'Detail', cat = 'Scene', sub = 'Detail' },
+        { label = 'Development', cat = 'Scene', sub = 'Development' },
+        { label = 'Complication', cat = 'Scene', sub = 'Complication' },
+        { label = 'Advantage', cat = 'Scene', sub = 'Advantage' },
     },
 }
 
