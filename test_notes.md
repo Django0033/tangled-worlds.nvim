@@ -17,3 +17,5 @@ test2(People -> Name) Lor-ril-ix text
 (World -> Name) Tyv-fell
 (World -> Name) Noc-quill
 Challenge: Easy-Retrieval | Senses: Earthy moss-Splashing waves
+
+Challenge: Easy-Persuasion | Reaction: Concentrate-Wound | Senses: Floral perfume-Creaking wood | Activity: Clandestine gambling | Detail: A lingering scent in the air | Development: A significant clue is discovered | Complication: Expose (secret, lie, agenda, weakness, location, intention) | Advantage: Exploit (weakness, loophole, distraction, emotion, pattern, info)

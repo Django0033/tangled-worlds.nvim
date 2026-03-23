@@ -134,6 +134,45 @@ After pressing `<CR>` in markdown:
 
 ---
 
+## Predefined Generators
+
+Generate complete content with single commands.
+
+| Generator | Command |
+|----------|---------|
+| FullScene | `:TangledWorlds FullScene` |
+| FullNPC | `:TangledWorlds FullNPC` (coming soon) |
+| FullExploration | `:TangledWorlds FullExploration` (coming soon) |
+| FullWorld | `:TangledWorlds FullWorld` (coming soon) |
+| FullQuest | `:TangledWorlds FullQuest` (coming soon) |
+
+### FullScene Example
+
+```
+:TangledWorlds FullScene
+┌─────────────────────────────────────────┐
+│ FullScene                               │
+│ Challenge: HardBattle                    │
+│ Reaction: Defensive stance             │
+│ Senses: Spiced incense                │
+│ Activity: Searching                    │
+│ Detail: Ancient inscriptions           │
+│ Development: Unexpected arrival        │
+│ Complication: Trapped                  │
+│ Advantage: High ground                │
+│                                         │
+│ Press <CR> to insert | y to copy       │
+│ q to cancel                            │
+└─────────────────────────────────────────┘
+```
+
+After pressing `<CR>`:
+```
+Challenge: HardBattle | Reaction: Defensive stance | Senses: Spiced incense | Activity: Searching | Detail: Ancient inscriptions | Development: Unexpected arrival | Complication: Trapped | Advantage: High ground
+```
+
+---
+
 ## Content Summary
 
 | Category | Subcategories | Content Types |
